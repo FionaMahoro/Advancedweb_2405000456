@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tasks</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ebeaea;
+            padding: 20px;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+        h1{
+          color:#adadad;  
+        }
+        input[type="text"] { /* Apply styles to text inputs */
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #c1e2f0;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        input[type="submit"] { /* Apply styles to submit button */
+             padding: 10px;
+            background-color: #10b9ec;
+            color: rgb(36, 35, 35);
+            border: none;
+            border-radius: 4px;
+          
+        }
+        input[type="submit"]:disabled {
+            background-color: #b3b4b6;
+            cursor: not-allowed;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 300px;
+            background-color: rgb(169, 171, 172);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        li {
+            background-color: #adadad;  
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            // By default, submit button is disabled
+            document.querySelector('#submit').disabled = true;
+
+            // Check only the task input for enabling/disabling the submit button
+            document.querySelector('#task').onkeyup = () => {
+                if (document.querySelector('#task').value.length > 0 && document.querySelector('#name').value.length > 0) {
+                    document.querySelector('#submit').disabled = false;
+                } else {
+                    document.querySelector('#submit').disabled = true;
+                }
+            }
+
+            document.querySelector('form').onsubmit = () => {
+               const task =  document.querySelector('#task').value;
+               const name = document.querySelector('#name').value; // Get the name input value
+
+               const li = document.createElement('Li');
+
+               // Include the name in the list item (optional, adjust as needed)
+               li.innerHTML = `${name}: ${task}`;
+
+               document.querySelector('#tasks').append(li);
+
+               // Clear only the task input field after submission
+               document.querySelector('#name').value = '';
+               document.querySelector('#task').value = '';
+               document.querySelector('#submit').disabled = true;
+
+               // stop form from submitting
+               return false;
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <form>
+        <input id="name" placeholder="Your Name" type="text"> 
+        <input id="task" placeholder="Your Password" type="text">
+        <input id="submit" type="submit">
+    </form>
+    <ul id="tasks">
+    </ul>
+</body>
+</html>
